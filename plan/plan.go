@@ -1,19 +1,25 @@
 package plan
 
-import "time"
+import (
+	"main/utils"
+	"time"
+)
 
 type Plan struct {
-	name      string
-	startDate time.Time
-	endDate   time.Time
-	status    PlanStatus
-	tasks     []Task
+	Uuid      string
+	Name      string
+	StartDate time.Time
+	EndDate   time.Time
+	Status    PlanStatus
+	Tasks     []Task
 }
 
-func CreatePlan() (plan Plan) {
+func CreatePlan(name string, startDate time.Time, endDate time.Time) (plan Plan) {
 	plan = Plan{
-		startDate: time.Now(),
-		endDate:   time.Now(),
+		Uuid:      utils.GenUuid(),
+		Name:      name,
+		StartDate: startDate,
+		EndDate:   endDate,
 	}
 	return
 }

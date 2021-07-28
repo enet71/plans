@@ -4,6 +4,7 @@ import (
 	tgbotapi "github.com/Syfaro/telegram-bot-api"
 	"main/consts"
 	"main/plan"
+	"main/users"
 	"strconv"
 	"strings"
 	"time"
@@ -11,7 +12,8 @@ import (
 
 func CreatePlan(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	commandArguments := message.CommandArguments()
-	plansList := plan.GetList()
+	user := users.GetUSer(message.From.ID)
+	plansList := user.PlansList
 	planName := "Plan" + strconv.Itoa(plansList.GetLength())
 	startDate := time.Now()
 	endDate := time.Now().Add(time.Minute * 30)
