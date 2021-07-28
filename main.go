@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"main/plan"
+	"main/bot"
 )
 
 func main() {
-	plan.GetList().AddPlan(plan.CreatePlan())
-	fmt.Println(plan.GetList())
+	bot.StartBot()
 }
