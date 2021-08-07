@@ -1,7 +1,8 @@
-package commands
+package start
 
 import (
 	tgbotapi "github.com/Syfaro/telegram-bot-api"
+	"main/bot/cosnt/keyboards"
 	"main/plan"
 	"main/users"
 )
@@ -17,5 +18,9 @@ func StartUser(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 		PlansList: &plan.PlanList{},
 	}
 
-	users.AddUser(user)
+	users.AddUser(&user)
+
+	msg := tgbotapi.NewMessage(message.Chat.ID, "Bot was started")
+	msg.ReplyMarkup = keyboards.MainKeyboard
+	bot.Send(msg)
 }

@@ -1,7 +1,8 @@
 package requests
 
 type Request struct {
-	Type      RequestType
-	UserId    int
-	MessageId int
+	Type        string
+	UserId      int
+	MessageId   int
+	MessageText string
 }

@@ -2,14 +2,14 @@ package requests
 
 var requests = map[int]*Request{}
 
-func addRequest(request *Request) {
+func AddRequest(request *Request) {
 	requests[request.UserId] = request
 }
 
-func getRequest(userId int) *Request {
+func GetRequest(userId int) *Request {
 	return requests[userId]
 }
 
-func userHasRequest(userId int) bool {
+func UserHasRequest(userId int) bool {
 	return requests[userId] != nil
 }
