@@ -1,5 +1,5 @@
 package consts
 
 const (
-	DATE_FORMAT = "15:04 02.01.2006"
+	DATE_FORMAT = "15:04 01.02.2006"
 )

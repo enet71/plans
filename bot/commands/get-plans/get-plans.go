@@ -2,11 +2,11 @@ package get_plans
 
 import (
 	tgbotapi "github.com/Syfaro/telegram-bot-api"
-	"main/users"
+	"main/plan"
 )
 
 func GetPlans(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
-	plans := users.GetUSer(message.From.ID).PlansList.Plans
+	plans := plan.GetPlansList(message.From.ID).Plans
 
 	keyboardRows := make([][]tgbotapi.InlineKeyboardButton, len(plans))
 

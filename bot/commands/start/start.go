@@ -3,7 +3,6 @@ package start
 import (
 	tgbotapi "github.com/Syfaro/telegram-bot-api"
 	"main/bot/cosnt/keyboards"
-	"main/plan"
 	"main/users"
 )
 
@@ -15,7 +14,6 @@ func StartUser(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 		LastName:  messageUser.LastName,
 		UserName:  messageUser.UserName,
 		ChatID:    message.Chat.ID,
-		PlansList: &plan.PlanList{},
 	}
 
 	users.AddUser(&user)

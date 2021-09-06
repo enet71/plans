@@ -1,11 +1,11 @@
 package bot
 
 import (
-	"fmt"
 	tgbotapi "github.com/Syfaro/telegram-bot-api"
 	"main/bot/commands"
 	"main/bot/requests"
 	"main/consts"
+	"main/plan"
 	"main/users"
 	"time"
 )
@@ -16,23 +16,30 @@ func StartBot() {
 	u.Timeout = 60
 	updates, _ := bot.GetUpdatesChan(u)
 
-	go createScheduler()
+	go createScheduler(bot)
 	createUpdatesListener(bot, &updates)
 }
 
-func createScheduler() {
-	for minute := range time.Tick(time.Minute) {
-		fmt.Println(minute)
-		users.ForEachUser(func(user *users.User) {
+func createScheduler(bot *tgbotapi.BotAPI) {
+	for minute := range time.Tick(time.Second * 10) {
 
-		})
+		_, offset := minute.Zone()
+		utcDate := minute.UTC().Add(time.Second * time.Duration(offset))
+
+		for _, plansList := range plan.GetPlansLists() {
+			for _, plan := range plansList.Plans {
+				if plan.StartDate.Sub(utcDate).Seconds() < 11 {
+					user := users.GetUSer(plansList.UserId)
+					msg := tgbotapi.NewMessage(user.ChatID, "Reminder")
+					bot.Send(msg)
+				}
+			}
+		}
 	}
 }
 
 func createUpdatesListener(bot *tgbotapi.BotAPI, updates *tgbotapi.UpdatesChannel) {
 	for update := range *updates {
-		fmt.Println(update)
-
 		if update.Message != nil && update.Message.IsCommand() {
 			commands.RunCommand(bot, update.Message)
 		}

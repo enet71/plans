@@ -1,12 +1,10 @@
 package create_plan
 
 import (
-	"fmt"
 	tgbotapi "github.com/Syfaro/telegram-bot-api"
 	"main/bot/requests"
 	"main/consts"
 	"main/plan"
-	"main/users"
 	"strings"
 	"time"
 )
@@ -19,9 +17,7 @@ func StartPlanCreating(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 }
 
 func FinishPlanCreating(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
-	fmt.Println(bot, message)
-	user := users.GetUSer(int(message.Chat.ID))
-	plansList := user.PlansList
+	plansList := plan.GetPlansList(int(message.Chat.ID))
 	name, startDate, endDate, description := parseMessageText(message.Text)
 	startTime, _ := time.Parse(consts.DATE_FORMAT, startDate)
 	endTime, _ := time.Parse(consts.DATE_FORMAT, endDate)
